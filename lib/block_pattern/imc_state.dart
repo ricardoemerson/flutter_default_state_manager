@@ -1,11 +1,15 @@
 class ImcState {
-  final double imc;
+  final double? imc;
 
   ImcState({
-    required this.imc,
+    this.imc,
   });
 }
 
-class ImcStateLoading extends ImcState {
-  ImcStateLoading({required super.imc});
+class ImcStateLoading extends ImcState {}
+
+class ImcStateError extends ImcState {
+  final String message;
+
+  ImcStateError({required this.message});
 }

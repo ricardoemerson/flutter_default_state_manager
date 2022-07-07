@@ -14,12 +14,16 @@ class ImcBlockPatternController {
   }
 
   Future<void> calcularIMC({required double peso, required double altura}) async {
-    _imcStreamController.add(ImcStateLoading(imc: 0));
+    try {
+      _imcStreamController.add(ImcStateLoading());
 
-    await Future.delayed(const Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 1));
 
-    final imc = peso / pow(altura, 2);
+      final imc = peso / pow(altura, 2);
 
-    _imcStreamController.add(ImcState(imc: imc));
+      _imcStreamController.add(ImcState(imc: imc));
+    } on Exception {
+      _imcStreamController.add(ImcStateError(message: 'Erro ao calcular o IMC!!'));
+    }
   }
 }
